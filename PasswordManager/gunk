@@ -1,0 +1,51 @@
+int Login()
+{
+    int pass = 0;
+    int numOfPlatFrom;
+    char *uName = (char *)malloc(50);
+    char *pWord = (char *)malloc(50);
+
+    printf("Enter UserName: ");
+    scanf(" %[^\n]s", uName);
+
+    for (UserInfo **start = user + 0; start < user + 100; start++)
+    {
+        if (*start != NULL && strcmp((*start)->Name, uName) == 0)
+        {
+            if (!pass)
+            {
+                printf("Enter Password: ");
+                scanf(" %[^\n]s", pWord);
+
+                if (strcmp((*start)->passWord, pWord) == 0)
+                {
+                    pass = 1;
+                    printf("\n\t     Welcome %s", (*start)->Name);
+                    printf("\n\t---------------------------\n");
+                    printf("\t| %-10s | %-10s |\n", "Platform", "Password");
+                    printf("\t---------------------------\n");
+                } else {
+                    break;
+                }
+
+                strcpy(LoginSession, uName);
+            }
+
+            if (pass)
+            {
+                viewAccount(start);
+            }
+        }
+    }
+
+    if (pass == 0)
+        printf("Could not login\n");
+
+    free(uName);
+    uName = NULL;
+
+    free(pWord);
+    pWord = NULL;
+
+    return pass;
+}
